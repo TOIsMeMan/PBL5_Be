@@ -1,0 +1,30 @@
+GET http://localhost:5000/api/user/aaaaaa
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "name" : "Nguyễn Công Tuấn",
+    "email": "admin@gmail.com", 
+    "password": "123456",
+    "phone": "0377033450"
+}
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "user1@gmail.com",
+    "password": "123456"
+}
+
+###
+GET http://localhost:5000/api/user/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NDQ1NTA5MSwiZXhwIjoxNzQ0ODg3MDkxfQ.2FNL-F3YivaF1N8zXUGV2UVYb0Ui1fTMv3KVuIPyZAA
+
+# {
+#     "email": "user4@gmail.com",
+#     "password": "123456"
+# }
