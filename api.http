@@ -42,6 +42,7 @@ GET http://localhost:5000/api/schedule/
 Content-Type: application/json
 
 {
-    "fromLocationId": "7",
+    # "fromLocationId": "1",
     "toLocationId": "19"
+    # "date": "2025-04-16"
 }
