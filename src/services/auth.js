@@ -10,6 +10,9 @@ export const register = ({name, email, password, phone}) => new Promise(async (r
         const hash = bcrypt.hashSync(password, salt);
         const response = await db.User.findOrCreate({
             where: { email: email },
+            attributes:{
+                exclude: ['password', 'createdAt', 'updatedAt']                            
+            },
             defaults: {
                 name: name,
                 email,
@@ -34,6 +37,9 @@ export const login = ({ email, password }) => new Promise(async (resolve, reject
     try {
         const response = await db.User.findOne({
             where: { email: email },
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']                            
+            },
             raw: true
         })
         const isChecked = response && bcrypt.compareSync(password, response.password)

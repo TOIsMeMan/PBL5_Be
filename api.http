@@ -5,8 +5,8 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "name" : "Nguyễn Công Tuấn",
-    "email": "user3@gmail.com", 
+    "name" : "Tạ Quang Hữu",
+    "email": "user8@gmail.com", 
     "password": "123456",
     "phone": "0377033450"
 }
@@ -16,7 +16,7 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
+    "email": "user4@gmail.com",
     "password": "123456"
 }
 
@@ -34,7 +34,7 @@ GET http://localhost:5000/api/location/
 Content-Type: application/json
 
 {
-    "text": "H"
+    "text": "đà nẵng"
 }
 
 ###
@@ -42,7 +42,7 @@ GET http://localhost:5000/api/schedule/
 Content-Type: application/json
 
 {
-    # "fromLocationId": "1",
-    "toLocationId": "19"
-    # "date": "2025-04-16"
+    "fromLocationId": "1",
+    "toLocationId": "19",
+    "date": "2025-04-16"
 }
