@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.createTable('Schedules', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
 
-      name: {type: Sequelize.STRING},
+      routeId: {type: Sequelize.STRING},
       departureTime: {type: Sequelize.TIME},
       arrivalTime: {type: Sequelize.TIME},
       date: {type: Sequelize.DATEONLY},

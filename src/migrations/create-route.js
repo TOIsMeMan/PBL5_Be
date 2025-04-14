@@ -5,8 +5,8 @@ module.exports = {
     await queryInterface.createTable('Routes', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
 
-      fromLocationId: {type: Sequelize.STRING},
-      toLocationId: {type: Sequelize.STRING},
+      fromLocationId: {type: Sequelize.INTEGER},
+      toLocationId: {type: Sequelize.INTEGER},
       distance: {type: Sequelize.INTEGER},
       duration: {type: Sequelize.INTEGER},
       description: {type: Sequelize.STRING},

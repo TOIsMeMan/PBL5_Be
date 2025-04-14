@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
     "name" : "Nguyễn Công Tuấn",
-    "email": "admin@gmail.com", 
+    "email": "user3@gmail.com", 
     "password": "123456",
     "phone": "0377033450"
 }
@@ -28,3 +28,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 #     "email": "user4@gmail.com",
 #     "password": "123456"
 # }
+
+###
+GET http://localhost:5000/api/location/
+Content-Type: application/json
+
+{
+    "text": "H"
+}
+
+###
+GET http://localhost:5000/api/schedule/
+Content-Type: application/json
+
+{
+    "fromLocationId": "7",
+    "toLocationId": "19"
+}

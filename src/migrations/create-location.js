@@ -8,7 +8,7 @@ module.exports = {
       name: {type: Sequelize.STRING},
       province: {type: Sequelize.STRING},
       address: {type: Sequelize.STRING},
-      type_code: {type: Sequelize.STRING},
+      type_code: {type: Sequelize.STRING, defaultValue: 'L1'},
 
       createdAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')},
       updatedAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')}

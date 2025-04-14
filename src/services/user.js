@@ -19,7 +19,8 @@ export const getOne = (userId) => new Promise(async (resolve, reject) => {
                             ]
                         }
                     ],
-                    raw: true
+                    raw: true,
+                    nest: true
                 })
 
         resolve({

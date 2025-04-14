@@ -4,19 +4,25 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Route extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      Route.belongsTo(models.Role, {foreignKey: 'role_code', targetKey: 'code', as: 'roleData'})
+      // Route belongs to Location as fromLocation
+      Route.belongsTo(models.Location, {
+        foreignKey: 'fromLocationId',
+        targetKey: 'id',
+        as: 'fromLocation'
+      });
+
+      // Route belongs to Location as toLocation
+      Route.belongsTo(models.Location, {
+        foreignKey: 'toLocationId',
+        targetKey: 'id',
+        as: 'toLocation'
+      });
     }
   }
   Route.init({
-    fromLocationId: DataTypes.STRING,
-    toLocationId: DataTypes.STRING,
+    fromLocationId: DataTypes.INTEGER,
+    toLocationId: DataTypes.INTEGER,
     distance: DataTypes.INTEGER,
     duration: DataTypes.INTEGER,
     description: DataTypes.STRING,

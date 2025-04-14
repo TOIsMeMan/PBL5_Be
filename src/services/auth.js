@@ -20,7 +20,7 @@ export const register = ({name, email, password, phone}) => new Promise(async (r
 
         resolve({
             success: response[1] ? true : false,
-            mes: response[1] ? 'Register success' : 'Email is already exists',
+            mes: response[1] ? 'Đăng ký thành công' : 'Email is already exists',
             data: response[1]? {
                 user: response[0]
             } : null
