@@ -30,11 +30,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 # }
 
 ###
-GET http://localhost:5000/api/location/
+POST http://localhost:5000/api/location/
 Content-Type: application/json
 
 {
-    "text": "đà nẵng"
+    "text": ""
 }
 
 ###

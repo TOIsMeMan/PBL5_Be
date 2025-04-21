@@ -13,6 +13,8 @@ import db from '../models'
         return response? response.id : null
     }
 
+    
+
     export const getSchedules = ({fromLocationId, toLocationId, date}) => new Promise(async (resolve, reject) => {
         try {
             
@@ -88,6 +90,14 @@ import db from '../models'
                     data: response? response : null
                 })
             }            
+        } catch (error) {
+            reject(error)   
+        }
+    })
+
+    export const getSchedulesByText = ({fromLocationId, toLocationId, date}) => new Promise(async (resolve, reject) => {
+        try {
+                    
         } catch (error) {
             reject(error)   
         }
