@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/user/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NDQ1NTA5MSwiZXhwIjoxNzQ0ODg3MDkxfQ.2FNL-F3YivaF1N8zXUGV2UVYb0Ui1fTMv3KVuIPyZAA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyNEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NTI2MDEwMCwiZXhwIjoxNzQ1NjkyMTAwfQ.j90BrlnjD2l6i2Up3S__Rk-l5AADCesKdloyzBDbw8I
 
 # {
 #     "email": "user4@gmail.com",
@@ -38,11 +38,21 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/schedule/
+POST http://localhost:5000/api/schedule/
 Content-Type: application/json
 
 {
     "fromLocationId": "1",
     "toLocationId": "19",
-    "date": "2025-04-16"
+    "date": "2025-04-22"
+}
+
+###
+POST http://localhost:5000/api/booking/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyNEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NTI2MDEwMCwiZXhwIjoxNzQ1NjkyMTAwfQ.j90BrlnjD2l6i2Up3S__Rk-l5AADCesKdloyzBDbw8I
+
+{
+    "scheduleId": "19",
+    "seat": ["A01", "A02"]
 }

@@ -1,5 +1,4 @@
 const scheduleController = require('../controllers/schedule')
-import controller from '../controllers'
 const router = require('express').Router()
 
 router.post('/', scheduleController.getSchedulesController)

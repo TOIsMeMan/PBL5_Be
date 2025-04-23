@@ -10,6 +10,7 @@ import db from '../models'
             },
             raw: true
         })
+        console.log(response)
         return response? response.id : null
     }
 
@@ -37,7 +38,7 @@ import db from '../models'
                         },
                         raw: true
                     })
-                    
+                    console.log(scheduleResponse)
                     const routeResponse = await db.Route.findOne({
                         where: {
                             id: routeId
