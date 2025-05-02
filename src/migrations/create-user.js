@@ -12,7 +12,7 @@ module.exports = {
       phone: {type: Sequelize.STRING},
       address: {type: Sequelize.STRING},
       role_code: {type: Sequelize.STRING, defaultValue: 'R2'},
-      status: {type: Sequelize.STRING, defaultValue: 'S1'},
+      status: {type: Sequelize.STRING, defaultValue: 'US1'},
 
       createdAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')},
       updatedAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')}

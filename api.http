@@ -5,8 +5,8 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "name" : "Tạ Quang Hữu",
-    "email": "user8@gmail.com", 
+    "name" : "TO",
+    "email": "admin@gmail.com", 
     "password": "123456",
     "phone": "0377033450"
 }
@@ -16,13 +16,13 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "user4@gmail.com",
+    "email": "user8@gmail.com",
     "password": "123456"
 }
 
 ###
 GET http://localhost:5000/api/user/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyNEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NTI2MDEwMCwiZXhwIjoxNzQ1NjkyMTAwfQ.j90BrlnjD2l6i2Up3S__Rk-l5AADCesKdloyzBDbw8I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyOEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NjExMzI3MSwiZXhwIjoxNzQ2NTQ1MjcxfQ.Mc-Rtf5hm5tVJqsYlhRpQgziTYZQe8ld2vGJ2XHxoAQ
 
 # {
 #     "email": "user4@gmail.com",
@@ -44,7 +44,7 @@ Content-Type: application/json
 {
     "fromLocationId": "1",
     "toLocationId": "19",
-    "date": "2025-04-22"
+    "date": "2025-04-15"
 }
 
 ###
@@ -55,4 +55,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiO
 {
     "scheduleId": "19",
     "seat": ["A01", "A02"]
+}
+
+###
+POST http://localhost:5000/api/seat/
+Content-Type: application/json
+
+{
+    "scheduleId": "1"
 }
