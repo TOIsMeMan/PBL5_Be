@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Schedule.init({
-    routeId: DataTypes.STRING,
+    routeId: DataTypes.INTEGER,
     departureTime: DataTypes.TIME,
     arrivalTime: DataTypes.TIME,
     date: DataTypes.DATEONLY,

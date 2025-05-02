@@ -71,8 +71,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 {
-    "scheduleId": "20",
-    "seats": ["137", "140"]
+    "scheduleId": "1",
+    "seats": ["5", "6"]
 }
 
 ###
@@ -81,7 +81,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 {
-    "id": "1"
+    "id": "2"
 }
 
 ###

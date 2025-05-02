@@ -2,24 +2,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Schedules', {
+    await queryInterface.createTable('Payments', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
 
-      routeId: {type: Sequelize.INTEGER},
-      departureTime: {type: Sequelize.TIME},
-      arrivalTime: {type: Sequelize.TIME},
-      date: {type: Sequelize.DATEONLY},
-      price: {type: Sequelize.INTEGER},
-      availableSeats: {type: Sequelize.INTEGER},
-      totalSeats: {type: Sequelize.INTEGER},
-      busType: {type: Sequelize.STRING},
-      status_code: {type: Sequelize.STRING},
+      bookingId: {type: Sequelize.INTEGER},
+      totalAmount: {type: Sequelize.INTEGER},
+      reference: {type: Sequelize.STRING},
+      status: {type: Sequelize.STRING, defaultValue: 'PMS1'},
+      expires_at: {type: Sequelize.DATE},
 
       createdAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')},
       updatedAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')}
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Schedules');
+    await queryInterface.dropTable('Payments');
   }
 };

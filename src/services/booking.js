@@ -34,6 +34,19 @@ const getTotalAmount = async (scheduleId, numOfTicket) => {
 
 export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) => {
     try {
+        for (const seat of bookingInfo.seats) {
+            const findSeat = await db.BookingSeat.findOne({
+              where: { seatId: parseInt(seat) }
+            });
+          
+            if (findSeat !== null) {
+              return resolve({
+                success: false,
+                message: 'Seats are unavailable'
+              });
+            }
+        }        
+
         const reference = generateBookingReference(bookingInfo.scheduleId)
 
         const totalAmount = await getTotalAmount(bookingInfo.scheduleId, bookingInfo.seats.length)
@@ -41,7 +54,7 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
         const qrUrl = generateQrUrl({
             bankCode: 'TPB',
             accountNumber: '22213092004',
-            amount: 50000,
+            amount: totalAmount,
             reference: generateBookingReference(bookingInfo.scheduleId)
         })
 
@@ -77,6 +90,15 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
                     console.log('Seat: ', updateSeat)
                 }
             })
+            
+            const schedule = await db.Schedule.findOne({ where: { id: response.scheduleId } });
+            const remaining = schedule.availableSeats - bookingInfo.seats.length;
+            
+            await db.Schedule.update(
+              { availableSeats: remaining },
+              { where: { id: response.scheduleId } }
+            );
+                                    
         }
 
         resolve({
@@ -96,18 +118,7 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
             where: { id: bookingId },
             attributes:{
                 exclude: ['createdAt', 'updatedAt']                            
-            },
-            include: [
-                {
-                    model: db.BookingSeat, 
-                    as: 'bookingSeat',
-                    attributes: [
-                        'id',
-                        'bookingId',
-                        'seatId'
-                    ]
-                }
-            ],
+            }
         })
 
         if (!response) {
@@ -124,9 +135,19 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
             })
         }
 
+        const seats = await db.BookingSeat.findAndCountAll({
+            where: { bookingId: response.id },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            }
+        })
+
         resolve({
             success: response ? true : false,
-            data: response ? response : null
+            data: response ? {
+                boking: response,
+                seats: seats
+            } : null
         })
     } catch (error) {
         reject(error)
