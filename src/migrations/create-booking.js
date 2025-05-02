@@ -11,7 +11,7 @@ module.exports = {
       booking_status: {type: Sequelize.STRING, defaultValue: 'BKS1'},
       totalAmount: {type: Sequelize.INTEGER},
       payment_status: {type: Sequelize.STRING, defaultValue: 'PMS1'},
-      payment_method: {type: Sequelize.STRING},
+      payment_method: {type: Sequelize.STRING, defaultValue: 'PMM2'},
       payment_url: {type: Sequelize.STRING},
       expires_at: {type: Sequelize.DATE},
 

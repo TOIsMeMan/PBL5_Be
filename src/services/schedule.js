@@ -1,6 +1,6 @@
-    import { raw } from 'mysql2'
+import { raw } from 'mysql2'
 import db from '../models'
-    import {Op, where} from 'sequelize'
+import {Op, where} from 'sequelize'
 
     const getRouteId = async ({fromLocationId, toLocationId}) => {
         const response = await db.Route.findOne({
@@ -96,9 +96,18 @@ import db from '../models'
         }
     })
 
-    export const getSchedulesByText = ({fromLocationId, toLocationId, date}) => new Promise(async (resolve, reject) => {
+    export const getScheduleById = (id) => new Promise(async (resolve, reject) => {
         try {
-                    
+            const response = await db.Schedule.findOne({ 
+                where: { id: id },
+                attributes:{
+                    exclude: ['createdAt', 'updatedAt']                            
+                },
+            });
+            resolve({
+                success: response? true : false,
+                data: response? response : null
+            })
         } catch (error) {
             reject(error)   
         }

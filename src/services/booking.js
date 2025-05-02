@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import db from '../models'
 
 const generateBookingReference = (scheduleId) => {
@@ -10,33 +11,122 @@ const generateBookingReference = (scheduleId) => {
     return `BK-${datePart}-${scheduleId}-${randomPart}`;
   };  
 
-export const sendBooking = ({id, scheduleId}) => new Promise(async (resolve, reject) => {
+  const generateQrUrl = ({ bankCode, accountNumber, amount, reference }) => {
+    if (!bankCode || !accountNumber || !amount || !reference) {
+      throw new Error("Missing required parameter for QR generation");
+    }
+  
+    // VietQR.io link format
+    return `https://img.vietqr.io/image/${bankCode}-${accountNumber}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(reference)}`;
+  };
+  
+const getTotalAmount = async (scheduleId, numOfTicket) => {
     try {
-        const response = await db.User.findOne({
-                    where: { id: userId },
-                    attributes:{
-                        exclude: ['password', 'createdAt', 'updatedAt']                            
+        const id = parseInt(scheduleId)
+        const schedule = await db.Schedule.findOne({ 
+            where: { id: id } 
+        });
+        return schedule.price * numOfTicket;
+    } catch (error) {
+        reject(error)
+    }
+}
+
+export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) => {
+    try {
+        const reference = generateBookingReference(bookingInfo.scheduleId)
+
+        const totalAmount = await getTotalAmount(bookingInfo.scheduleId, bookingInfo.seats.length)
+
+        const qrUrl = generateQrUrl({
+            bankCode: 'TPB',
+            accountNumber: '22213092004',
+            amount: 50000,
+            reference: generateBookingReference(bookingInfo.scheduleId)
+        })
+
+        const response = await db.Booking.create({
+            userId: bookingInfo.userId,
+            scheduleId: bookingInfo.scheduleId,
+            reference: reference,
+            totalAmount: totalAmount,
+            payment_url: qrUrl,
+            expires_at: new Date(Date.now() + 30 * 60 * 1000) // 30 phút sau
+        })
+
+        console.log('before create booking seat')
+
+        if (response !== null) {
+            bookingInfo.seats.forEach( async seat => {
+                console.log('seat: ', seat)
+                const bookingSeat = await db.BookingSeat.findOrCreate({
+                    where: {
+                        seatId: parseInt(seat)
                     },
-                    include: [
-                        {
-                            model: db.Role, 
-                            as: 'roleData',
-                            attributes: [
-                                'id',
-                                'code',
-                                'value'
-                            ]
-                        }
-                    ],
-                    raw: true,
-                    nest: true
+                    defaults: {
+                        bookingId: response.id,
+                        seatId: parseInt(seat)
+                    }
                 })
+                if (bookingSeat) { 
+                    console.log('in seat')
+                    const updateSeat = await db.Seat.update(
+                        { seat_status: 'SS3' },
+                        { where: { id: parseInt(seat) } }
+                    )
+                    console.log('Seat: ', updateSeat)
+                }
+            })
+        }
 
         resolve({
             success: response ? true : false,
-            data: response? {
-                user: response
-            } : null
+            data: response? response : null
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve, reject) => {
+    try {
+        const bookingId = bookingDetailInfo.bookingId
+
+        const response = await db.Booking.findOne({
+            where: { id: bookingId },
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']                            
+            },
+            include: [
+                {
+                    model: db.BookingSeat, 
+                    as: 'bookingSeat',
+                    attributes: [
+                        'id',
+                        'bookingId',
+                        'seatId'
+                    ]
+                }
+            ],
+        })
+
+        if (!response) {
+            return resolve({
+                success: false,
+                message: 'Booking not found'
+            })
+        }
+
+        if (response.userId !== bookingDetailInfo.userId) {
+            return resolve({
+                success: false,
+                message: 'You are not authorized to view this booking'
+            })
+        }
+
+        resolve({
+            success: response ? true : false,
+            data: response ? response : null
         })
     } catch (error) {
         reject(error)

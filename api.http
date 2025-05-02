@@ -5,8 +5,8 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "name" : "TO",
-    "email": "admin@gmail.com", 
+    "name" : "Nguyễn Công Tuấn Đẹp Trai",
+    "email": "user1@gmail.com", 
     "password": "123456",
     "phone": "0377033450"
 }
@@ -16,13 +16,13 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "user8@gmail.com",
+    "email": "user1@gmail.com",
     "password": "123456"
 }
 
 ###
 GET http://localhost:5000/api/user/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyOEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NjExMzI3MSwiZXhwIjoxNzQ2NTQ1MjcxfQ.Mc-Rtf5hm5tVJqsYlhRpQgziTYZQe8ld2vGJ2XHxoAQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 # {
 #     "email": "user4@gmail.com",
@@ -48,13 +48,40 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/api/booking/
+POST http://localhost:5000/api/schedule/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyNEBnbWFpbC5jb20iLCJyb2xlX2NvZGUiOiJSMiIsImlhdCI6MTc0NTI2MDEwMCwiZXhwIjoxNzQ1NjkyMTAwfQ.j90BrlnjD2l6i2Up3S__Rk-l5AADCesKdloyzBDbw8I
 
 {
-    "scheduleId": "19",
-    "seat": ["A01", "A02"]
+    "fromLocationId": "1",
+    "toLocationId": "19",
+    "date": "2025-04-15"
+}
+
+###
+POST http://localhost:5000/api/schedule/detail
+Content-Type: application/json
+
+{
+    "id": "20"
+}
+
+###
+POST http://localhost:5000/api/booking/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
+
+{
+    "scheduleId": "20",
+    "seats": ["137", "140"]
+}
+
+###
+POST http://localhost:5000/api/booking/detail
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
+
+{
+    "id": "1"
 }
 
 ###
@@ -62,5 +89,5 @@ POST http://localhost:5000/api/seat/
 Content-Type: application/json
 
 {
-    "scheduleId": "1"
+    "scheduleId": "5"
 }
