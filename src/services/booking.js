@@ -118,7 +118,38 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
             where: { id: bookingId },
             attributes:{
                 exclude: ['createdAt', 'updatedAt']                            
-            }
+            },
+            include: [
+                {
+                    model: db.Schedule,
+                    as: 'scheduleData',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    },
+                    include: [
+                        {
+                            model: db.Route,
+                            as: 'routeData',
+                            attributes: {
+                                exclude: ['createdAt', 'updatedAt', 'duration', 'distance', 'description', 'status_code']
+                            },
+                            include: [
+                                {
+                                    model: db.Location,
+                                    as: 'fromLocation',
+                                    attributes: ['name']
+                                },
+                                {
+                                    model: db.Location,
+                                    as: 'toLocation',
+                                    attributes: ['name']
+                                }
+                            ]
+    
+                        }
+                    ]
+                }
+            ]
         })
 
         if (!response) {
@@ -148,6 +179,56 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
                 boking: response,
                 seats: seats
             } : null
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const getAllBooking = (userId) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Booking.findAndCountAll({
+            where: { userId },
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']                            
+            },
+            include: [
+                {
+                    model: db.Schedule,
+                    as: 'scheduleData',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', "availableSeats", "totalSeats", "busType", "status_code"]
+                    },
+                    include: [
+                        {
+                            model: db.Route,
+                            as: 'routeData',
+                            attributes: {
+                                exclude: ['createdAt', 'updatedAt', 'duration', 'distance', 'description', 'status_code']
+                            },
+                            include: [
+                                {
+                                    model: db.Location,
+                                    as: 'fromLocation',
+                                    attributes: ['name']
+                                },
+                                {
+                                    model: db.Location,
+                                    as: 'toLocation',
+                                    attributes: ['name']
+                                }
+                            ]
+
+                        }
+                    ]
+
+                }
+            ]
+        })
+
+        resolve({
+            success: response ? true : false,
+            data: response ? response : null
         })
     } catch (error) {
         reject(error)

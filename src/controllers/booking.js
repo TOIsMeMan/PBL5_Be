@@ -26,3 +26,12 @@ export const getBookingByIdController = async (req, res) => {
         return internalServerError(res)
     }
 }
+
+export const getAllBookingController = async (req, res) => {
+    try {
+        const response = await services.getAllBooking(req.user.id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}

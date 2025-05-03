@@ -103,6 +103,28 @@ import {Op, where} from 'sequelize'
                 attributes:{
                     exclude: ['createdAt', 'updatedAt']                            
                 },
+                include: [
+                    {
+                        model: db.Route,
+                        as: 'routeData',
+                        attributes: {
+                            exclude: ['createdAt', 'updatedAt', 'duration', 'distance', 'description', 'status_code']
+                        },
+                        include: [
+                            {
+                                model: db.Location,
+                                as: 'fromLocation',
+                                attributes: ['name']
+                            },
+                            {
+                                model: db.Location,
+                                as: 'toLocation',
+                                attributes: ['name']
+                            }
+                        ]
+
+                    }
+                ]
             });
             resolve({
                 success: response? true : false,

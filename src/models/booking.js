@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id',
         as: 'bookingSeats'
       });
-      
+      Booking.belongsTo(models.Schedule, {foreignKey: 'scheduleId', targetKey: 'id', as: 'scheduleData'});
     }
   }
   Booking.init({

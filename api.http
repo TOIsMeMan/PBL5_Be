@@ -16,7 +16,17 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
+    "email": "user@gmail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:5000/api/auth/change_password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
+
+{
+    "oldPassword": "1234567",
     "password": "123456"
 }
 
@@ -72,16 +82,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 {
     "scheduleId": "5",
-    "seats": ["139", "140"]
+    "seats": ["135", "136"]
 }
 
-###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
+###lấy thông tin chi tiết booking by id -> call ở payment -> call api user -> call api schedule by id
 POST http://localhost:5000/api/booking/detail
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 {
     "id": "1"
+}
+
+###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
+POST http://localhost:5000/api/booking/get_all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
+
+{
+    
 }
 
 ###lấy tình trạng từng ghế trong chuyến đi -> call ở booking 0: không, 1: có
@@ -97,8 +116,5 @@ POST http://localhost:5000/api/payment/
 Content-Type: application/json
 
 {
-    "bookingId": "1",
-    "totalAmount": "1900000",
-    "reference": "BK-250503-5-D5Q0",
-    "expires_at": "2025-05-03T05:29:55.568Z"
+    "bookingId": "3"
 }
