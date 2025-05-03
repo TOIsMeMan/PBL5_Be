@@ -47,7 +47,7 @@ Content-Type: application/json
     "date": "2025-04-15"
 }
 
-###
+### api lấy danh sách chuyến đi từ location 1 đến location 19 vào ngày 2025-04-15
 POST http://localhost:5000/api/schedule/
 Content-Type: application/json
 
@@ -57,12 +57,12 @@ Content-Type: application/json
     "date": "2025-04-15"
 }
 
-###
+###lấy chi tiết danh sách chuyến đi -> call ở booking
 POST http://localhost:5000/api/schedule/detail
 Content-Type: application/json
 
 {
-    "id": "20"
+    "id": "1"
 }
 
 ###
@@ -72,22 +72,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 {
     "scheduleId": "1",
-    "seats": ["5", "6"]
+    "seats": ["7", "8"]
 }
 
-###
+###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
 POST http://localhost:5000/api/booking/detail
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 {
-    "id": "2"
+    "id": "1"
 }
 
-###
+###lấy tình trạng từng ghế trong chuyến đi -> call ở booking 0: không, 1: có
 POST http://localhost:5000/api/seat/
 Content-Type: application/json
 
 {
-    "scheduleId": "5"
+    "scheduleId": "4"
 }
