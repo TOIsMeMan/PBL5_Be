@@ -71,8 +71,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
 
 {
-    "scheduleId": "1",
-    "seats": ["13", "24"]
+    "scheduleId": "5",
+    "seats": ["139", "140"]
 }
 
 ###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
@@ -90,4 +90,15 @@ Content-Type: application/json
 
 {
     "scheduleId": "4"
+}
+
+###call khi customer nhấn xác nhận thanh toán -> call ở payment
+POST http://localhost:5000/api/payment/
+Content-Type: application/json
+
+{
+    "bookingId": "1",
+    "totalAmount": "1900000",
+    "reference": "BK-250503-5-D5Q0",
+    "expires_at": "2025-05-03T05:29:55.568Z"
 }
