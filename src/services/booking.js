@@ -67,7 +67,7 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
             expires_at: new Date(Date.now() + 30 * 60 * 1000) // 30 phút sau
         })
 
-        console.log('before create booking seat')
+        const { createdAt, updatedAt, ...cleaned } = response.get({ plain: true });
 
         if (response !== null) {
             bookingInfo.seats.forEach( async seat => {
@@ -103,7 +103,7 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
 
         resolve({
             success: response ? true : false,
-            data: response? response : null
+            data: response? cleaned : null
         })
     } catch (error) {
         reject(error)

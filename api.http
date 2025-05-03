@@ -72,7 +72,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 {
     "scheduleId": "1",
-    "seats": ["7", "8"]
+    "seats": ["13", "24"]
 }
 
 ###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
