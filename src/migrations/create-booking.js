@@ -5,7 +5,9 @@ module.exports = {
     await queryInterface.createTable('Bookings', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
 
-      userId: {type: Sequelize.INTEGER},
+      name: {type: Sequelize.STRING},
+      email: {type: Sequelize.STRING},
+      phone: {type: Sequelize.STRING},
       scheduleId: {type: Sequelize.INTEGER},
       reference: {type: Sequelize.STRING},
       booking_status: {type: Sequelize.STRING, defaultValue: 'BKS1'},

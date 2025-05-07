@@ -7,28 +7,37 @@ const generateBookingReference = (scheduleId) => {
     const m = String(now.getMonth() + 1).padStart(2, '0');
     const d = String(now.getDate()).padStart(2, '0');
     const datePart = `${y}${m}${d}`;
-    const randomPart = Math.random().toString(36).substring(2, 6).toUpperCase(); // ví dụ: A3KF
+    const randomPart = Math.random().toString(36).substring(2, 6).toUpperCase();
     return `BK-${datePart}-${scheduleId}-${randomPart}`;
-  };  
+};
 
-  const generateQrUrl = ({ bankCode, accountNumber, amount, reference }) => {
+const generateQrUrl = ({ bankCode, accountNumber, amount, reference }) => {
     if (!bankCode || !accountNumber || !amount || !reference) {
-      throw new Error("Missing required parameter for QR generation");
+        throw new Error("Missing required parameter for QR generation");
     }
   
     // VietQR.io link format
     return `https://img.vietqr.io/image/${bankCode}-${accountNumber}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(reference)}`;
-  };
-  
+};
+
 const getTotalAmount = async (scheduleId, numOfTicket) => {
     try {
         const id = parseInt(scheduleId)
         const schedule = await db.Schedule.findOne({ 
             where: { id: id } 
         });
+        
+        if (!schedule) {
+            throw new Error('Schedule not found');
+        }
+        
+        if (!schedule.price) {
+            throw new Error('Schedule price is not set');
+        }
+        
         return schedule.price * numOfTicket;
     } catch (error) {
-        reject(error)
+        throw error;
     }
 }
 
@@ -48,18 +57,19 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
         }        
 
         const reference = generateBookingReference(bookingInfo.scheduleId)
-
         const totalAmount = await getTotalAmount(bookingInfo.scheduleId, bookingInfo.seats.length)
 
         const qrUrl = generateQrUrl({
             bankCode: 'TPB',
             accountNumber: '22213092004',
             amount: totalAmount,
-            reference: generateBookingReference(bookingInfo.scheduleId)
+            reference: reference
         })
 
         const response = await db.Booking.create({
-            userId: bookingInfo.userId,
+            name: bookingInfo.name,
+            phone: bookingInfo.phone,
+            email: bookingInfo.email,
             scheduleId: bookingInfo.scheduleId,
             reference: reference,
             totalAmount: totalAmount,
@@ -103,7 +113,7 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
 
         resolve({
             success: response ? true : false,
-            data: response? cleaned : null
+            data: response ? cleaned : null
         })
     } catch (error) {
         reject(error)
@@ -113,10 +123,11 @@ export const sendBooking = (bookingInfo) => new Promise(async (resolve, reject) 
 export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve, reject) => {
     try {
         const bookingId = bookingDetailInfo.bookingId
+        console.log("booking id: ", bookingId)
 
         const response = await db.Booking.findOne({
             where: { id: bookingId },
-            attributes:{
+            attributes: {
                 exclude: ['createdAt', 'updatedAt']                            
             },
             include: [
@@ -145,24 +156,17 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
                                     attributes: ['name']
                                 }
                             ]
-    
                         }
                     ]
                 }
             ]
         })
 
+        console.log("done get response")
         if (!response) {
             return resolve({
                 success: false,
                 message: 'Booking not found'
-            })
-        }
-
-        if (response.userId !== bookingDetailInfo.userId) {
-            return resolve({
-                success: false,
-                message: 'You are not authorized to view this booking'
             })
         }
 
@@ -176,11 +180,12 @@ export const getBookingById = (bookingDetailInfo) => new Promise(async (resolve,
         resolve({
             success: response ? true : false,
             data: response ? {
-                boking: response,
+                booking: response,
                 seats: seats
             } : null
         })
     } catch (error) {
+        console.error('Error in getBookingById:', error);
         reject(error)
     }
 })

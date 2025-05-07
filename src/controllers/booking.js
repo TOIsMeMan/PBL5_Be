@@ -1,25 +1,40 @@
-import { internalServerError } from '../middlewears/handle_error'
+import joi from 'joi'
+import { name, email, phone, scheduleId, seats } from '../helpers/joi_schema'
+import { internalServerError, badRequest } from '../middlewears/handle_error'
 import * as services from '../services'
 
 export const sendBookingController = async (req, res) => {
     try {
-        const userId = req.user.id
-        const bookingInfo = {}
-        bookingInfo.userId = userId
-        bookingInfo.scheduleId = req.body.scheduleId
-        bookingInfo.seats = req.body.seats
+        const {error} = joi.object({
+            name: name,
+            email: email,
+            phone: phone,
+            scheduleId: scheduleId,
+            seats: joi.array().items(joi.string()).required()
+        }).validate(req.body)
+        if (error) return badRequest(error.details[0].message, res)
+
+        const bookingInfo = {
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            scheduleId: req.body.scheduleId,
+            seats: req.body.seats
+        }
+
         const response = await services.sendBooking(bookingInfo)
         return res.status(200).json(response)
     } catch (error) {
-        return internalServerError(res)
+        console.error('Booking Error:', error);
+        return internalServerError(res);
     }
 }
 
 export const getBookingByIdController = async (req, res) => {
     try {
-        const bookingDetailInfo = {}
-        bookingDetailInfo.userId = req.user.id
-        bookingDetailInfo.bookingId = parseInt(req.body.id)
+        const bookingDetailInfo = {
+            bookingId: parseInt(req.body.id)
+        }
         const response = await services.getBookingById(bookingDetailInfo)
         return res.status(200).json(response)
     } catch (error) {
