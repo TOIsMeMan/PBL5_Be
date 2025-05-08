@@ -95,7 +95,6 @@ Content-Type: application/json
     "id": "1"
 }
 
-###lấy thông tin chi tiết booking -> call ở payment -> call api user -> call api schedule by id
 POST http://localhost:5000/api/booking/get_all
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
