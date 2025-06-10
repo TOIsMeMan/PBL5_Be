@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Schedule.belongsTo(models.Route, {foreignKey: 'routeId', targetKey: 'id', as: 'routeData'});
+      Schedule.belongsTo(models.BusType, { foreignKey: 'busType', targetKey: 'code' });
     }
   }
   Schedule.init({
@@ -23,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     availableSeats: DataTypes.INTEGER,
     totalSeats: DataTypes.INTEGER,
     busType: DataTypes.STRING,
-    status_code: DataTypes.STRING
+    status_code: DataTypes.STRING,
+    busType: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Schedule',

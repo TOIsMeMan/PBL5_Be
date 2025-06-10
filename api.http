@@ -81,10 +81,10 @@ Content-Type: application/json
 
 {
     "name": "Nguyễn Công Tuấn Đẹp Trai",
-    "email": "tuancong146@gmail.com",
+    "email": "tuang146@gmail.com",
     "phone": "0377033450",
     "scheduleId": "1",
-    "seats": ["1", "2"]
+    "seats": ["5", "6"]
 }
 
 ###lấy thông tin chi tiết booking by id -> call ở payment -> call api user -> call api schedule by id
@@ -92,12 +92,13 @@ POST http://localhost:5000/api/booking/detail
 Content-Type: application/json
 
 {
-    "id": "1"
+    "id": "3"
 }
 
+###
 POST http://localhost:5000/api/booking/get_all
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ2MTU2ODcxLCJleHAiOjE3NDY1ODg4NzF9.snNUGuRmaHU6l17SGW8HO_CZHbAwOGdGz2T0NuH4x3Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIyIiwiaWF0IjoxNzQ5MTU3ODU1LCJleHAiOjE3NDk1ODk4NTV9.p0XH7dAGZ_a_AGOMepmRnzyRuMXQkxNzScLJuwCTL1w
 
 {
     
@@ -108,7 +109,7 @@ POST http://localhost:5000/api/seat/
 Content-Type: application/json
 
 {
-    "scheduleId": "4"
+    "scheduleId": "1"
 }
 
 ###call khi customer nhấn xác nhận thanh toán -> call ở payment

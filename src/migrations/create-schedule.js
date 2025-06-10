@@ -14,6 +14,7 @@ module.exports = {
       totalSeats: {type: Sequelize.INTEGER},
       busType: {type: Sequelize.STRING},
       status_code: {type: Sequelize.STRING},
+      busType: {type: Sequelize.STRING},
 
       createdAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')},
       updatedAt: {allowNull: false, type: 'TIMESTAMP', defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')}

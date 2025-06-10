@@ -123,6 +123,10 @@ import {Op, where} from 'sequelize'
                             }
                         ]
 
+                    },
+                    {
+                        model: db.BusType,
+                        attributes: ['code', 'name', 'totalSeats', 'layout']
                     }
                 ]
             });

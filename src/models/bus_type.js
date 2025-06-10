@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   BusType.init({
     code: DataTypes.STRING,
-    value: DataTypes.STRING,
+    name: DataTypes.STRING,
+    floor: DataTypes.INTEGER,
+    layout: DataTypes.JSON,
+    totalSeats: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'BusType',
