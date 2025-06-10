@@ -20,3 +20,44 @@ export const getScheduleByIdController = async (req, res) => {
         return internalServerError(res)
     }
 }
+
+export const getAllSchedulesByRouteIdController = async (req, res) => {
+    try {
+        const routeId = parseInt(req.body.routeId)
+        console.log(routeId)
+        const response = await services.getAllSchedulesByRouteId(routeId)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
+
+export const addScheduleController = async (req, res) => {
+    try {
+        console.log(req.body)
+        const response = await services.addSchedule(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
+
+export const updateScheduleController = async (req, res) => {
+    try {
+        console.log(req.body)
+        const response = await services.updateSchedule(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
+
+export const deleteScheduleController = async (req, res) => {
+    try {
+        console.log(req.body)
+        const response = await services.deleteSchedule(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}

@@ -5,6 +5,7 @@ import schedule from './schedule'
 import booking from './booking'
 import seat from './seat'
 import payment from './payment'
+import route from './route'
 
 import { internalServerError, notFoundRoute } from '../middlewears/handle_error'
 
@@ -16,6 +17,7 @@ const initRoutes = (app) => {
     app.use('/api/booking', booking)
     app.use('/api/seat', seat)
     app.use('/api/payment', payment)
+    app.use('/api/route', route)
 
     app.use(notFoundRoute)
 }

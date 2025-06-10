@@ -119,3 +119,61 @@ Content-Type: application/json
 {
     "bookingId": "3"
 }
+
+
+###tất cả những api dưới đều phải đăng nhập admin sau đó truyền access token vào header
+
+###Get all route
+POST http://localhost:5000/api/route/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    
+}
+
+###Truyền routeId vào để lấy list schedule của route đó
+POST http://localhost:5000/api/schedule/list
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "routeId": "1"
+}
+
+###Add thêm schedule
+POST http://localhost:5000/api/schedule/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "routeId": "1",
+    "departureTime": "06:00:00",
+    "arrivalTime": "20:00:00",
+    "Date": "2025-04-15",
+    "price": 500000,
+    "busType": "BUS2T"
+}
+
+###Update schedule (phải truyền scheduleId, còn lại có thể truyền hoặc không)
+POST http://localhost:5000/api/schedule/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "scheduleId": "2",
+//    "departureTime": "06:00:00",
+  //  "arrivalTime": "20:00:00",
+    //"Date": "2025-04-15",
+    "price": 700000,
+    "busType": "BUS2T"
+}
+
+###Delete schedule bằng scheduleId
+POST http://localhost:5000/api/schedule/delete
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "scheduleId": "1"
+}
