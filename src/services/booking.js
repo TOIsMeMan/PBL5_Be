@@ -239,3 +239,127 @@ export const getAllBooking = (userId) => new Promise(async (resolve, reject) => 
         reject(error)
     }
 })
+
+export const updateBookingStatus = ({ bookingId, booking_status }) => new Promise(async (resolve, reject) => {
+    try {
+        // Các trạng thái hợp lệ mới
+        const validStatus = ['BKS1', 'BKS2', 'BKS3', 'BKS4'];
+        if (!validStatus.includes(booking_status)) {
+            return resolve({
+                success: false,
+                message: 'Invalid booking status'
+            });
+        }
+
+        const booking = await db.Booking.findByPk(bookingId);
+        if (!booking) {
+            return resolve({
+                success: false,
+                message: 'Booking not found'
+            });
+        }
+
+        booking.booking_status = booking_status;
+        await booking.save();
+
+        resolve({
+            success: true,
+            data: booking
+        });
+    } catch (error) {
+        reject(error);
+    }
+});
+
+export const getAllBookingAdmin = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Booking.findAndCountAll({
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            },
+            include: [
+                {
+                    model: db.Schedule,
+                    as: 'scheduleData',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', "availableSeats", "totalSeats", "busType", "status_code"]
+                    },
+                    include: [
+                        {
+                            model: db.Route,
+                            as: 'routeData',
+                            attributes: {
+                                exclude: ['createdAt', 'updatedAt', 'duration', 'distance', 'description', 'status_code']
+                            },
+                            include: [
+                                {
+                                    model: db.Location,
+                                    as: 'fromLocation',
+                                    attributes: ['name']
+                                },
+                                {
+                                    model: db.Location,
+                                    as: 'toLocation',
+                                    attributes: ['name']
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        });
+
+        resolve({
+            success: response ? true : false,
+            data: response ? response : null
+        });
+    } catch (error) {
+        reject(error);
+    }
+});
+
+export const getBookingByReference = ({ reference }) => new Promise(async (resolve, reject) => {
+    try {
+        const booking = await db.Booking.findAndCountAll({
+            where: { reference },
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+            include: [
+                {
+                    model: db.Schedule,
+                    as: 'scheduleData',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', "availableSeats", "totalSeats", "busType", "status_code"]
+                    },
+                    include: [
+                        {
+                            model: db.Route,
+                            as: 'routeData',
+                            attributes: {
+                                exclude: ['createdAt', 'updatedAt', 'duration', 'distance', 'description', 'status_code']
+                            },
+                            include: [
+                                {
+                                    model: db.Location,
+                                    as: 'fromLocation',
+                                    attributes: ['name']
+                                },
+                                {
+                                    model: db.Location,
+                                    as: 'toLocation',
+                                    attributes: ['name']
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        });
+
+        resolve({
+            success: booking ? true : false,
+            data: booking ? booking : null
+        });
+    } catch (error) {
+        reject(error);
+    }
+});

@@ -177,3 +177,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 {
     "scheduleId": "1"
 }
+
+
+###Get all booking của admin
+POST http://localhost:5000/api/booking/get_all_admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    
+}
+
+###Update booking status (phải truyền bookingId và booking_status)
+POST http://localhost:5000/api/booking/update_status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "bookingId": "1",
+    "booking_status": "BKS2"
+}
+
+
+###Search booking by reference
+POST http://localhost:5000/api/booking/get_booking_by_reference
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsInJvbGVfY29kZSI6IlIxIiwiaWF0IjoxNzQ5NTY3MjUxLCJleHAiOjE3NDk5OTkyNTF9.xosS4P7ZpqErLTcyceKEen3hHTIrRKXl0e89XXe0Eks
+
+{
+    "reference": "BK-250507-1-927H"
+}

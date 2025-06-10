@@ -50,3 +50,30 @@ export const getAllBookingController = async (req, res) => {
         return internalServerError(res)
     }
 }
+
+export const updateBookingStatusController = async (req, res) => {
+    try {
+        const response = await services.updateBookingStatus(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
+
+export const getAllBookingAdminController = async (req, res) => {
+    try {
+        const response = await services.getAllBookingAdmin(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
+
+export const getBookingByReferenceController = async (req, res) => {
+    try {
+        const response = await services.getBookingByReference(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return internalServerError(res)
+    }
+}
